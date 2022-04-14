@@ -9,10 +9,16 @@ interface Route {
   name: string;
 }
 
-// Lazyload definition
-const LazyHome = lazy(() => import("../lazyload/pages/Home"));
-const LazyAbout = lazy(() => import("../lazyload/pages/About"));
-const LazyUsers = lazy(() => import("../lazyload/pages/Users"));
+// Lazyload definition with personalize chunk names
+const LazyHome = lazy(
+  () => import(/* webpackChunkName: Home */ "../lazyload/pages/Home")
+);
+const LazyAbout = lazy(
+  () => import(/* webpackChunkName: About */ "../lazyload/pages/About")
+);
+const LazyUsers = lazy(
+  () => import(/* webpackChunkName: Users */ "../lazyload/pages/Users")
+);
 
 export const routes: Route[] = [
   {
