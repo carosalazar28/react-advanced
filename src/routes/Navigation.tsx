@@ -6,6 +6,8 @@ import {
   NavLink,
 } from "react-router-dom";
 
+import { Home, About, Users } from "../lazyload/pages/Index";
+
 import logo from "../logo.svg";
 
 export const Navigation = () => {
@@ -42,9 +44,9 @@ export const Navigation = () => {
           </ul>
         </nav>
         <Routes>
-          <Route path="/" element={<h1>home</h1>} />
-          <Route path="about" element={<h1>about</h1>} />
-          <Route path="users" element={<h1>users</h1>} />
+          <Route path="/" element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="users" element={<Users />} />
           <Route path="/*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
