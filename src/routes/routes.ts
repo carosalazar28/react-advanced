@@ -1,4 +1,5 @@
 import { lazy, LazyExoticComponent } from "react";
+import { ProfileNoLazy } from "../lazyload/pages/ProfileNoLazy";
 
 type JSXComponent = () => JSX.Element;
 
@@ -10,33 +11,34 @@ interface Route {
 }
 
 // Lazyload definition with personalize chunk names
-const LazyHome = lazy(
-  () => import(/* webpackChunkName: Home */ "../lazyload/pages/Home")
-);
-const LazyAbout = lazy(
-  () => import(/* webpackChunkName: About */ "../lazyload/pages/About")
-);
-const LazyUsers = lazy(
-  () => import(/* webpackChunkName: Users */ "../lazyload/pages/Users")
-);
+const LazyLayoutHome = lazy(() => import("../lazyload/layout/LazyLayout"));
+// const LazyAbout = lazy(() => import("../lazyload/pages/About"));
+// const LazyUsers = lazy(() => import("../lazyload/pages/Users"));
 
 export const routes: Route[] = [
   {
-    to: "/",
-    path: "/",
-    Component: LazyHome,
-    name: "Home",
+    to: "/lazyload",
+    // For react router dom v6 this is the way for render children routes
+    path: "/lazyload/*",
+    Component: LazyLayoutHome,
+    name: "LazyLoad",
   },
+  // {
+  //   to: "/about",
+  //   path: "about",
+  //   Component: LazyAbout,
+  //   name: "About",
+  // },
+  // {
+  //   to: "/users",
+  //   path: "users",
+  //   Component: LazyUsers,
+  //   name: "Users",
+  // },
   {
-    to: "/about",
-    path: "about",
-    Component: LazyAbout,
-    name: "About",
-  },
-  {
-    to: "/users",
-    path: "users",
-    Component: LazyUsers,
-    name: "Users",
+    to: "/profile-no-lazy",
+    path: "profile-no-lazy",
+    Component: ProfileNoLazy,
+    name: "Profile No Lazy",
   },
 ];
