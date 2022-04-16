@@ -11,7 +11,9 @@ interface Route {
 }
 
 // Lazyload definition with personalize chunk names
-const LazyLayoutHome = lazy(() => import("../lazyload/layout/LazyLayout"));
+const LazyLayoutHome = lazy(
+  () => import("../lazyload/components/layout/LazyLayout")
+);
 // const LazyAbout = lazy(() => import("../lazyload/pages/About"));
 // const LazyUsers = lazy(() => import("../lazyload/pages/Users"));
 

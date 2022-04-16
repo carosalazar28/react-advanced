@@ -1,5 +1,5 @@
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
-import { About, Home, Users } from "../pages/Index";
+import { About, Home, Users } from "../../pages/Index";
 
 const LazyLayout = () => {
   return (
