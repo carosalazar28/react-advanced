@@ -5,10 +5,11 @@ import {
   ProductTitle,
   ProductButtons,
 } from "../components/Product/Index";
+import "../styles/custom-styles.css";
 
 const product = {
   id: "1",
-  title: "Coffee Mug - 1",
+  title: "Compound Destructure",
   img: "./coffee-mug.png",
 };
 
@@ -25,17 +26,17 @@ export const ShoppingPage = () => {
         }}
       >
         {/* Define the compound components for give more flexibilitie for the developers and do it more scalable */}
-        <ProductCard product={product}>
-          <ProductCard.Image />
-          <ProductCard.Title title="joe" />
-          <ProductCard.Buttons />
+        <ProductCard product={product} className="bg-dark text-white">
+          <ProductCard.Image className="custom-image" />
+          <ProductCard.Title className="text-bold" />
+          <ProductCard.Buttons className="custom-buttons" />
         </ProductCard>
 
         {/* Define compound components from diferentes components and with arguments */}
-        <ProductCard product={product}>
-          <ProductImage />
-          <ProductTitle title="joe" />
-          <ProductButtons />
+        <ProductCard product={product} className="bg-dark text-white">
+          <ProductImage className="custom-image" />
+          <ProductTitle title="Compound HOC" className="text-bold" />
+          <ProductButtons className="custom-buttons" />
         </ProductCard>
       </div>
     </div>
