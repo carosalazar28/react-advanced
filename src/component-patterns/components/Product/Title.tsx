@@ -8,15 +8,16 @@ import styles from "../../styles/styles.module.css";
 export interface Props {
   className?: string;
   title?: string;
+  style?: React.CSSProperties;
 }
 
-export const ProductTitle = ({ title, className }: Props) => {
+export const ProductTitle = ({ title, className, style }: Props) => {
   const { product } = useContext(ProductContext);
 
   const titleToRender = title || product?.title;
 
   return (
-    <span className={`${styles.productDescription} ${className}`}>
+    <span style={style} className={`${styles.productDescription} ${className}`}>
       {titleToRender}
     </span>
   );

@@ -15,14 +15,17 @@ export interface Props {
   className?: string;
   product: Product;
   children?: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
-export const ProductCard = ({ product, children, className }: Props) => {
+export const ProductCard = ({ product, children, className, style }: Props) => {
   const { counter, handleIncrease } = useProduct();
 
   return (
     <Provider value={{ counter, handleIncrease, product }}>
-      <div className={`${styles.productCard} ${className}`}>{children}</div>
+      <div className={`${styles.productCard} ${className}`} style={style}>
+        {children}
+      </div>
     </Provider>
   );
 };

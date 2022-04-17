@@ -38,6 +38,12 @@ export const ShoppingPage = () => {
           <ProductTitle title="Compound HOC" className="text-bold" />
           <ProductButtons className="custom-buttons" />
         </ProductCard>
+
+        <ProductCard product={product} style={{ backgroundColor: "#43a8f0" }}>
+          <ProductImage style={{ boxShadow: "0px 2px 20px 0px" }} />
+          <ProductTitle title="Compound HOC" style={{ fontWeight: 600 }} />
+          <ProductButtons style={{ justifyContent: "end" }} />
+        </ProductCard>
       </div>
     </div>
   );
