@@ -14,9 +14,10 @@ const useProduct = ({ onChange, product, value = 0 }: useProductProps) => {
   const isControlled = useRef(Boolean(onChange));
 
   const handleIncrease = (value: number) => {
+    console.log("here", value);
     if (isControlled.current) return onChange!({ count: value, product });
-
     const newCounter = Math.max(counter + value, 0);
+
     setCounter(newCounter);
     onChange && onChange({ count: newCounter, product });
   };

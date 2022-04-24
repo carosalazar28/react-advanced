@@ -1,5 +1,4 @@
 // import { ProductCard } from "../components/ProductCard";
-import { useState } from "react";
 import {
   ProductCard,
   ProductImage,
@@ -7,45 +6,14 @@ import {
   ProductButtons,
 } from "../components/Product/Index";
 
-import { Product } from "../interfaces/products.interfaces";
+import useShoppingCart from "../hooks/useShoppingCart";
+
+import { products } from "../data/products";
 
 import "../styles/custom-styles.css";
 
-const product1 = {
-  id: "1",
-  title: "Compound Destructure",
-  img: "./coffee-mug.png",
-};
-
-const product2 = {
-  id: "2",
-  title: "Control Props",
-  img: "./coffee-mug2.png",
-};
-
-const products: Product[] = [product1, product2];
-
-interface ProductInCart extends Product {
-  quantity: number;
-}
-
 export const ShoppingPage = () => {
-  const [shoppingCart, setShoppingCart] = useState<{
-    [key: string]: ProductInCart;
-  }>({});
-
-  const onProductCountChange = (event: { count: number; product: Product }) => {
-    const { count, product } = event;
-    const { id } = product;
-
-    const newShoppingCart = { ...shoppingCart };
-
-    newShoppingCart[id] = { ...product, quantity: count };
-    if (count === 0) {
-      delete newShoppingCart[id];
-    }
-    setShoppingCart(newShoppingCart);
-  };
+  const { handleQuantityChange, shoppingCart } = useShoppingCart();
 
   return (
     <div>
@@ -72,7 +40,7 @@ export const ShoppingPage = () => {
             product={product}
             className="bg-dark text-white"
             value={shoppingCart[product.id]?.quantity || 0}
-            onChange={onProductCountChange}
+            onChange={handleQuantityChange}
           >
             <ProductImage className="custom-image" />
             <ProductTitle title="Compound HOC" className="text-bold" />
@@ -88,7 +56,7 @@ export const ShoppingPage = () => {
             className="bg-dark text-white"
             style={{ width: "100px" }}
             value={product.quantity}
-            onChange={onProductCountChange}
+            onChange={handleQuantityChange}
           >
             <ProductImage className="custom-image" />
             <ProductButtons className="custom-buttons" />
