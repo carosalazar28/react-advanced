@@ -1,14 +1,17 @@
 // import { ProductCard } from "../components/ProductCard";
+import { useState } from "react";
 import {
   ProductCard,
   ProductImage,
   ProductTitle,
   ProductButtons,
 } from "../components/Product/Index";
+
 import { Product } from "../interfaces/products.interfaces";
+
 import "../styles/custom-styles.css";
 
-const product = {
+const product1 = {
   id: "1",
   title: "Compound Destructure",
   img: "./coffee-mug.png",
@@ -20,9 +23,30 @@ const product2 = {
   img: "./coffee-mug2.png",
 };
 
-const products: Product[] = [product, product2];
+const products: Product[] = [product1, product2];
+
+interface ProductInCart extends Product {
+  quantity: number;
+}
 
 export const ShoppingPage = () => {
+  const [shoppingCart, setShoppingCart] = useState<{
+    [key: string]: ProductInCart;
+  }>({});
+
+  const onProductCountChange = (event: { count: number; product: Product }) => {
+    const { count, product } = event;
+    const { id } = product;
+
+    const newShoppingCart = { ...shoppingCart };
+
+    newShoppingCart[id] = { ...product, quantity: count };
+    if (count === 0) {
+      delete newShoppingCart[id];
+    }
+    setShoppingCart(newShoppingCart);
+  };
+
   return (
     <div>
       <h1>ShoppingPage</h1>
@@ -47,6 +71,7 @@ export const ShoppingPage = () => {
             key={product.id}
             product={product}
             className="bg-dark text-white"
+            onChange={onProductCountChange}
           >
             <ProductImage className="custom-image" />
             <ProductTitle title="Compound HOC" className="text-bold" />
@@ -55,14 +80,17 @@ export const ShoppingPage = () => {
         ))}
       </div>
       <div className="shopping-cart">
-        <ProductCard
-          product={product}
-          className="bg-dark text-white"
-          style={{ width: "100px" }}
-        >
-          <ProductImage className="custom-image" />
-          <ProductButtons className="custom-buttons" />
-        </ProductCard>
+        {Object.entries(shoppingCart).map(([key, product]) => (
+          <ProductCard
+            key={key}
+            product={product}
+            className="bg-dark text-white"
+            style={{ width: "100px" }}
+          >
+            <ProductImage className="custom-image" />
+            <ProductButtons className="custom-buttons" />
+          </ProductCard>
+        ))}
       </div>
     </div>
   );
