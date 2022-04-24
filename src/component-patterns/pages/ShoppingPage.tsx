@@ -5,6 +5,7 @@ import {
   ProductTitle,
   ProductButtons,
 } from "../components/Product/Index";
+import { Product } from "../interfaces/products.interfaces";
 import "../styles/custom-styles.css";
 
 const product = {
@@ -12,6 +13,14 @@ const product = {
   title: "Compound Destructure",
   img: "./coffee-mug.png",
 };
+
+const product2 = {
+  id: "2",
+  title: "Control Props",
+  img: "./coffee-mug2.png",
+};
+
+const products: Product[] = [product, product2];
 
 export const ShoppingPage = () => {
   return (
@@ -25,24 +34,34 @@ export const ShoppingPage = () => {
           flexWrap: "wrap",
         }}
       >
-        {/* Define the compound components for give more flexibilitie for the developers and do it more scalable */}
+        {/* Define the compound components for give more flexibilitie for the developers and do it more scalable
         <ProductCard product={product} className="bg-dark text-white">
           <ProductCard.Image className="custom-image" />
           <ProductCard.Title className="text-bold" />
           <ProductCard.Buttons className="custom-buttons" />
-        </ProductCard>
+        </ProductCard> */}
 
         {/* Define compound components from diferentes components and with arguments */}
-        <ProductCard product={product} className="bg-dark text-white">
+        {products.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            className="bg-dark text-white"
+          >
+            <ProductImage className="custom-image" />
+            <ProductTitle title="Compound HOC" className="text-bold" />
+            <ProductButtons className="custom-buttons" />
+          </ProductCard>
+        ))}
+      </div>
+      <div className="shopping-cart">
+        <ProductCard
+          product={product}
+          className="bg-dark text-white"
+          style={{ width: "100px" }}
+        >
           <ProductImage className="custom-image" />
-          <ProductTitle title="Compound HOC" className="text-bold" />
           <ProductButtons className="custom-buttons" />
-        </ProductCard>
-
-        <ProductCard product={product} style={{ backgroundColor: "#43a8f0" }}>
-          <ProductImage style={{ boxShadow: "0px 2px 20px 0px" }} />
-          <ProductTitle title="Compound HOC" style={{ fontWeight: 600 }} />
-          <ProductButtons style={{ justifyContent: "end" }} />
         </ProductCard>
       </div>
     </div>
