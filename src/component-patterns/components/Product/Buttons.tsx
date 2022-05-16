@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 
 import { ProductContext } from "./Card";
 
@@ -10,7 +10,14 @@ export interface Props {
 }
 
 export const ProductButtons = ({ className, style }: Props) => {
-  const { handleIncrease, counter } = useContext(ProductContext);
+  const { handleIncrease, counter, maxCount } = useContext(ProductContext);
+
+  const isMaxReached = useCallback(() => {
+    let isMaxCounter = false;
+    if (counter === maxCount) isMaxCounter = true;
+
+    return isMaxCounter;
+  }, [counter, maxCount]);
 
   return (
     <div style={style} className={`${styles.buttonsContainer} ${className}`}>
@@ -18,7 +25,12 @@ export const ProductButtons = ({ className, style }: Props) => {
         -
       </button>
       <div className={styles.countLabel}> {counter} </div>
-      <button className={styles.buttonAdd} onClick={() => handleIncrease(1)}>
+      <button
+        className={`${styles.buttonAdd} ${
+          isMaxReached() ? styles.disabled : null
+        }`}
+        onClick={() => handleIncrease(1)}
+      >
         +
       </button>
     </div>

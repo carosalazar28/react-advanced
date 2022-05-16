@@ -6,15 +6,13 @@ import {
   ProductButtons,
 } from "../components/Product/Index";
 
-import useShoppingCart from "../hooks/useShoppingCart";
-
 import { products } from "../data/products";
 
 import "../styles/custom-styles.css";
 
-export const ShoppingPage = () => {
-  const { handleQuantityChange, shoppingCart } = useShoppingCart();
+const product = products[0];
 
+export const ShoppingPage = () => {
   return (
     <div>
       <h1>ShoppingPage</h1>
@@ -34,34 +32,38 @@ export const ShoppingPage = () => {
         </ProductCard> */}
 
         {/* Define compound components from diferentes components and with arguments */}
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            className="bg-dark text-white"
-            value={shoppingCart[product.id]?.quantity || 0}
-            onChange={handleQuantityChange}
-          >
-            <ProductImage className="custom-image" />
-            <ProductTitle title="Compound HOC" className="text-bold" />
-            <ProductButtons className="custom-buttons" />
-          </ProductCard>
-        ))}
-      </div>
-      <div className="shopping-cart">
-        {Object.entries(shoppingCart).map(([key, product]) => (
-          <ProductCard
-            key={key}
-            product={product}
-            className="bg-dark text-white"
-            style={{ width: "100px" }}
-            value={product.quantity}
-            onChange={handleQuantityChange}
-          >
-            <ProductImage className="custom-image" />
-            <ProductButtons className="custom-buttons" />
-          </ProductCard>
-        ))}
+
+        <ProductCard
+          key={product.id}
+          product={product}
+          className="bg-dark text-white"
+          initialValues={{
+            count: 4,
+            maxCount: 10,
+          }}
+        >
+          {({
+            count,
+            maxCount,
+            isMaxCountReached,
+            handleReset,
+            handleIncrease,
+          }) => (
+            <>
+              <ProductImage className="custom-image" />
+              <ProductTitle title="Compound HOC" className="text-bold" />
+              <ProductButtons className="custom-buttons" />
+              <button onClick={handleReset}>Reset</button>
+              <button onClick={() => handleIncrease(-2)}> -2 </button>
+              {!isMaxCountReached ? (
+                <button onClick={() => handleIncrease(2)}> +2</button>
+              ) : null}
+              <span>
+                {count} - {maxCount}
+              </span>
+            </>
+          )}
+        </ProductCard>
       </div>
     </div>
   );
